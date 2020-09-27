@@ -14,7 +14,7 @@ class ParserWindow(QtWidgets.QMainWindow, ParserWindowUI.Ui_MainWindow):
     def parse_string_action(self) -> None:
         self.textBrowser_Log.clear()
 
-        input_string = self.lineEdit_StringInput.text().replace(' ', '')
+        input_string = self.lineEdit_StringInput.text()
         if len(input_string) <= 0:
             self.textBrowser_Log.append("Строка для парса пуста!")
             return
@@ -23,7 +23,7 @@ class ParserWindow(QtWidgets.QMainWindow, ParserWindowUI.Ui_MainWindow):
 
         output_str = ""
         for lexema in output_lexema_list:
-            output_str += str(lexema)
+            output_str += str(lexema) + " "
 
         self.textBrowser_Log.append("Строка успешно распарсена!")
 
