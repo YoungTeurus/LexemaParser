@@ -21,15 +21,6 @@ def unique_list(_list: list):
 
 
 class Parcer:
-    all_reserved_lexemas: List[str] = None
-
-    @staticmethod
-    def build_all_possible_lexemas() -> None:
-        if Parcer.all_reserved_lexemas is None:
-            Parcer.all_reserved_lexemas = list()
-            Parcer.all_reserved_lexemas.extend(splitters)
-            Parcer.all_reserved_lexemas.extend(operators)
-
     @staticmethod
     def get_lexemas(input_string: str) -> StrLexemaList:
         """
@@ -39,47 +30,19 @@ class Parcer:
         :return: Список лексем в порядке, как в строке.
         """
 
-        # def add_lexema(lex_start: int, lex_end: int):
-        #     if lex_end - lex_start <= 0:
-        #         # Если лексема пустое множество - не добавляем её
-        #         return
-        #     lexema_char = input_string[lex_start:lex_end]
-        #     # print(f"Добавление в список лексемы '{lexema_char}'")
-        #     # Добавление лексемы в список
-        #     return_list.append(lexema_char)
-
-        # def is_start_of_any_lexemas(char: str) -> bool:
-        #     # Возвращает True, если переданная строка является началом любой предопределённой
-        #     # лексемы.
-        #     for lexema in Parcer.all_possible_lexemas:
-        #         if lexema.startswith(char):
-        #             return True
-        #     return False
-        #
-        # def is_any_lexema(char: str) -> bool:
-        #     # Возвращает True, если переданная строка совпадает с любой предопределённой лексемой.
-        #     for lexema in Parcer.all_possible_lexemas:
-        #         if lexema == char:
-        #             return True
-        #     return False
-
-        # Parcer.build_all_possible_lexemas()
-
         def is_start_of_any_reserved_lexema(char: str) -> bool:
             # Возвращает True, если переданная строка является началом любого оператора.
-            for operator in Parcer.all_reserved_lexemas:
+            for operator in splitters:
                 if operator.startswith(char):
                     return True
             return False
 
         def is_any_reserved_lexema(char: str) -> bool:
             # Возвращает True, если переданная строка является любым оператором или разделителем.
-            for operator in Parcer.all_reserved_lexemas:
+            for operator in splitters:
                 if char == operator:
                     return True
             return False
-
-        Parcer.build_all_possible_lexemas()
 
         return_list: StrLexemaList = list()
 
@@ -88,6 +51,7 @@ class Parcer:
         lex_start = 0
 
         while lex_start < string_len:
+            not_reserved_lexema = True
             current_lexema = input_string[lex_start]
             # Если встретили отдельный пробел, просто пропускаем его:
             if current_lexema == ' ':
@@ -107,18 +71,10 @@ class Parcer:
                     else:
                         if is_any_reserved_lexema(current_lexema):
                             # Если уже составили сплиттер, прекращаем обход
-                            break
-                        # TODO: избежать повторения кода.
+                            not_reserved_lexema = False
                         # Если лексема прерывается, начинаем обрабатывать её как обычную лексему
-                        # next_char_i = lex_start + 1
-                        # Если это обычная лексема:
-                        while next_char_i < string_len and (next_char := input_string[next_char_i]) not in splitters:
-                            # Пока не встретили сплиттер
-                            current_lexema += next_char
-                            next_char_i += 1
-                            lex_start += 1
                         break
-            else:
+            if not_reserved_lexema:
                 next_char_i = lex_start + 1
                 # Если это обычная лексема:
                 while next_char_i < string_len and (next_char := input_string[next_char_i]) not in splitters:
@@ -129,44 +85,6 @@ class Parcer:
             # Когда дошли до конца лексемы
             lex_start += 1
             return_list.append(current_lexema)
-
-        # current_index = 0
-        # was_last_lexema_operator = True
-        #
-        # while True:
-        #     # Текущий символ:
-        #     current_char = input_string[current_index]
-        #     # Является ли очередной символ началом какого-либо оператора?
-        #     if is_start_of_any_lexemas(current_char):
-        #         # Да
-        #         # Занести в список лексем
-        #         # return_list.append(current_char)
-        #         while True:
-        #             # Если текущий набор символов + следующий символ - одна из предопределённых лексем?
-        #             if is_start_of_any_lexemas(current_char + input_string[current_index+1]):
-        #                 # Да
-        #                 current_char += input_string[current_index+1]
-        #                 current_index += 1
-        #             # Нет
-        #             break
-        #         if is_any_lexema(current_char):
-        #             was_last_lexema_operator = True
-        #             continue
-        #     # Нет
-        #
-        #     # Является ли последняя лексема оператором?
-        #     if was_last_lexema_operator:
-        #         # Да
-        #         # Создаём новую лексему
-        #         return_list.append(current_char)
-        #         was_last_lexema_operator = False
-        #         pass
-        #     else:
-        #         # Нет
-        #         # Добавляем текущий символ к прошлому
-        #         return_list[len(return_list)-1] += current_char
-        #
-        #     current_index += 1  # Переход к следующему символу
 
         return return_list
 

@@ -49,9 +49,9 @@ class Lexema:
     def __str__(self) -> str:
         if self.type is not None:
             if self.type == INT_CONST or self.type == FLOAT_CONST:
-                return f"Константа {self.id}"
+                return f"Константа '{self.char}'"
             if self.type == BOOL_CONST:
-                return f"Константа {self.char}"
+                return f"Константа '{self.char}'"
             if self.type == VARIABLE:
                 return f"Переменная {self.id}"
             if self.type == OPERATOR or self.type == SPLITTER:
