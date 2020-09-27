@@ -56,6 +56,8 @@ class HashTable:
                     return None
             self._table[actual_hash] = inserted_value
             return actual_hash
+        # Будет выполнено, если данный объект уже добавлен и находится на calculated_hash:
+        return calculated_hash
 
     def get_index(self, key: object,
                   compare_func: Callable[[object, object], bool] = default_compare
@@ -97,3 +99,10 @@ class HashTable:
         """
         object_index = self.get_index(key, compare_func)
         return self._table[object_index] if object_index is not None else None
+
+    def get_table(self):
+        """
+        Возвращает саму хеш-таблицу. НЕ ДЛЯ РЕДАКТИРОВАНИЯ ИЛИ ПРЯМОГО ДОСТУПА!
+        :return: Массив внутреннего представления хеш-таблицы.
+        """
+        return self._table
