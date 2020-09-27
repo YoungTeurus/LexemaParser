@@ -22,6 +22,18 @@ def unique_list(_list: list):
 
 class Parcer:
     @staticmethod
+    def prepare_string(input_string: str) -> str:
+        """
+        Метод подготавливает исходную строку для прохода парсера.
+        Убирает все переносы строк.
+        :param input_string: Исходная строка.
+        :return: Изменённая строка.
+        """
+        return_str = input_string.replace("\n", "")
+        # Заготовка для расширения.
+        return return_str
+
+    @staticmethod
     def get_lexemas(input_string: str) -> StrLexemaList:
         """
         Проходит про строке и разбивает её на лексемы. Лексемы могут повторяться.
@@ -121,6 +133,7 @@ class Parcer:
         :return: Tuple, содержащий список всех лексем, словарь типа "строковая лексема - объект-лексема"
          и список представления исходной строки в виде последовательности лексем.
         """
+        input_string = Parcer.prepare_string(input_string)  # 0. Убрать все переносы строк
         str_lexema_list = Parcer.get_lexemas(input_string)  # 1. Найти последовательность строковых лексем
         unique_str_lexema_list = unique_list(str_lexema_list)  # 2. Найти уникальные строковые лексемы
         # 3. Создаём список объектов-лексем

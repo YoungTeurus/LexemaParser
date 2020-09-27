@@ -1,9 +1,9 @@
 from Parcer import Parcer
-from UIs import ParserWindowUI
+from UIs import ParserWindowUI2
 from PyQt5 import QtWidgets
 
 
-class ParserWindow(QtWidgets.QMainWindow, ParserWindowUI.Ui_MainWindow):
+class ParserWindow(QtWidgets.QMainWindow, ParserWindowUI2.Ui_MainWindow):
 
     def __init__(self):
         super().__init__()
@@ -14,7 +14,7 @@ class ParserWindow(QtWidgets.QMainWindow, ParserWindowUI.Ui_MainWindow):
     def parse_string_action(self) -> None:
         self.textBrowser_Log.clear()
 
-        input_string = self.lineEdit_StringInput.text()
+        input_string = self.textEdit_InputText.toPlainText()
         if len(input_string) <= 0:
             self.textBrowser_Log.append("Строка для парса пуста!")
             return
@@ -39,4 +39,4 @@ class ParserWindow(QtWidgets.QMainWindow, ParserWindowUI.Ui_MainWindow):
             # Тип лексемы
             self.tableWidget_LexemasOut.setItem(i, 2, QtWidgets.QTableWidgetItem(lexema.type))
 
-        self.lineEdit_LexemaOut.setText(output_str)
+        self.textBrowser_OutLexemas.setText(output_str)
