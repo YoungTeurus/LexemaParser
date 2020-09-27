@@ -1,6 +1,7 @@
-import math
-import random
-from typing import Optional
+from Classes.HashTableCompareFunctions import str_object_lexema_compare
+from Classes.HashFunction import UniversalHashFunction_ForString
+from Classes.HashTable import HashTable
+from Classes.Lexema import Lexema
 
 if __name__ == "__main__":
     # app = QtWidgets.QApplication(sys.argv)
@@ -9,63 +10,13 @@ if __name__ == "__main__":
     # app.exec_()
 
     hash_table_size = 255  # Длина хеш-таблицы
+    hash_function = UniversalHashFunction_ForString(hash_table_size)
+    hash_table = HashTable(hash_table_size, hash_function)
 
-    _hash_C = random.random()
+    str_lexemas = "how are you mate whats up bro howdy it's me your best friend flowey".split(' ')
 
-    def hash_fun(input_str: str) -> int:
-        if not type(input_str) == str:
-            raise TypeError(f"Функция хеширования предназначена только для типа str, было передано"
-                            f" {input_str.__class__}!")
-        _sum: int = 0
-        for char in input_str:
-            _sum += ord(char)
+    for i, obj in enumerate(str_lexemas):
+        hash_table.insert(obj, Lexema(obj, i))
 
-        return math.floor(hash_table_size * ((_hash_C * _sum) % 1))
-
-    hash_table = [None for x in range(hash_table_size)]
-
-    def add_to_hash_table(item_to_add: str) -> int:
-        # Пытается добавить item_to_add в хеш-таблицу, и при успехе возвращает индекс добавленного элемента.
-        # Возбуждает исключение в случае неудачи.
-        calculated_hash = hash_fun(item_to_add)
-        if hash_table[calculated_hash] is None:
-            hash_table[calculated_hash] = item_to_add
-            return calculated_hash
-        elif hash_table[calculated_hash] != item_to_add:
-            # Если ячейка занята чем-то, кроме этого же элемента, начинаем двигаться по таблице далее,
-            # ища свободную ячейку.
-            actual_hash = calculated_hash + 1
-            while hash_table[actual_hash] is not None:
-                actual_hash = (actual_hash + 1) % hash_table_size
-                if actual_hash == calculated_hash:
-                    raise Exception("В хеш-таблице не осталось свободного места!")
-            hash_table[actual_hash] = item_to_add
-            return actual_hash
-
-    def get_from_hash_table(item_to_get: str) -> Optional[int]:
-        # Пытается найти индекс item_to-get в хеш-таблице, и при успехе возвращает его.
-        # Возвращает None, если элемент не был найден
-        calculated_hash = hash_fun(item_to_get)
-        if hash_table[calculated_hash] is None:
-            return None
-        if hash_table[calculated_hash] == item_to_get:
-            return calculated_hash
-        actual_hash = calculated_hash + 1
-        while hash_table[actual_hash] != item_to_get:
-            actual_hash = (actual_hash + 1) % hash_table_size
-            if actual_hash == calculated_hash:
-                return None
-        return actual_hash
-
-
-    sample_1 = "x"
-    sample_2 = "xor"
-    sample_3 = "2.8"
-
-    print(add_to_hash_table(sample_1))
-    print(add_to_hash_table(sample_2))
-    print(add_to_hash_table(sample_3))
-
-    print(get_from_hash_table(sample_1))
-    print(get_from_hash_table(sample_2))
-    print(get_from_hash_table(sample_3))
+    for obj in str_lexemas:
+        print(hash_table.get_value(obj, str_object_lexema_compare))

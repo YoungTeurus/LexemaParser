@@ -13,6 +13,12 @@ class HashTable:
     _hash_function: IHashFunction = None
 
     def __init__(self, size: int, hash_function: IHashFunction):
+        """
+        Инициализирует хеш-таблицу, создавая массив размером size.
+        Для всех последующих действий используется функция hash_function.
+        :param size: Размер хеш-таблицы.
+        :param hash_function: Хеш-функция.
+        """
         self._table_size = size
         self._table = [None for x in range(size)]
         self._hash_function = hash_function

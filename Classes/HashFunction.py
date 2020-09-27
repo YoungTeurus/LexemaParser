@@ -24,8 +24,8 @@ class UniversalHashFunction_ForString(IHashFunction):
             raise TypeError(f"Функция хеширования предназначена только для типа str, было передано"
                             f" {string.__class__}!")
         _sum: int = 0
-        for char in string:
-            _sum += ord(char)
+        for i, char in enumerate(string):
+            _sum += ord(char) * (i // 13)
 
         return math.floor(self._hash_table_size *
                           ((self._C * _sum) % 1)
