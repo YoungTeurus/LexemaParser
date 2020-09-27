@@ -19,7 +19,7 @@ class ParserWindow(QtWidgets.QMainWindow, ParserWindowUI.Ui_MainWindow):
             self.textBrowser_Log.append("Строка для парса пуста!")
             return
 
-        object_lexema_list, output_lexema_list = Parcer.parse_string(input_string)
+        object_lexema_list, str_object_lexema_dict, output_lexema_list = Parcer.parse_string(input_string)
 
         output_str = ""
         for lexema in output_lexema_list:

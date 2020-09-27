@@ -130,30 +130,3 @@ class Parcer:
         output_lexema_list = Parcer.get_output_lexema_list(str_lexema_list, str_object_lexema_dict)
 
         return object_lexema_list, str_object_lexema_dict, output_lexema_list
-
-    # @staticmethod
-    # def get_lexema_dict(lexema_list: StrLexemaList) -> LexemaDict:
-    #     """
-    #     Используя список лексем, возвращет словарь уникальных лексем вида:
-    #         'лексема' : {id: 'int', type: 'str'}
-    #     :param lexema_list: Список лексем.
-    #     :return: Словарь лексем.
-    #     """
-    #     return_dict: LexemaDict = dict()
-#
-#     unique_lexema_list = unique_list(lexema_list)
-#
-#     for i, lexema in enumerate(unique_lexema_list):
-#         return_dict[lexema] = {'id': int(i), 'type': None}
-#
-#     return return_dict
-#
-# @staticmethod
-# def get_lexema_string(input_string: str, lexema_dict: LexemaDict) -> str:
-#
-#     return_string: str = input_string
-#
-#     for i, lexema in enumerate(lexema_dict):
-#         return_string = return_string.replace(lexema, '"Лексема {0}"'.format(lexema_dict[lexema]["id"]))
-#
-#     return return_string
