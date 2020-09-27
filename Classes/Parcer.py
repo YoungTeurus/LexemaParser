@@ -1,7 +1,6 @@
 from typing import Dict, TypeVar, List, Tuple
 
-from Integer import Integer
-from Lexema import Lexema, splitters, operators
+from Classes.Lexema import Lexema, splitters
 
 StrOrInt = TypeVar('StrOrInt', str, int)  # Тип для хранения строки или целого числа
 StrLexemaList = List[str]  # Тип для хранения строки лексем

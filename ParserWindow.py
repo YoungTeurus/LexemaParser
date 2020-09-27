@@ -1,4 +1,4 @@
-from Parcer import Parcer
+from Classes.Parcer import Parcer
 from UIs import ParserWindowUI2
 from PyQt5 import QtWidgets
 
