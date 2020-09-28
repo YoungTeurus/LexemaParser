@@ -25,7 +25,7 @@ class UniversalHashFunction_ForString(IHashFunction):
                             f" {string.__class__}!")
         _sum: int = 0
         for i, char in enumerate(string):
-            _sum += ord(char) * (i + 1 % 13)
+            _sum += ord(char) * ((i + 1) % 13)
 
         return math.floor(self._hash_table_size *
                           ((self._C * _sum) % 1)

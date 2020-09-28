@@ -48,7 +48,7 @@ class HashTable:
         elif not default_compare(self._table[calculated_hash], inserted_value):
             # Если ячейка занята чем-то, кроме этого же элемента, начинаем двигаться по таблице далее
             # в поисках свободной ячейки.
-            actual_hash = calculated_hash + 1
+            actual_hash = (calculated_hash + 1) % self._table_size
             while self._table[actual_hash] is not None:
                 actual_hash = (actual_hash + 1) % self._table_size
                 # Если вернулись туда, откуда шли, значит таблица полна.
