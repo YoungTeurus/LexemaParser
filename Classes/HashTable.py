@@ -79,7 +79,7 @@ class HashTable:
             return calculated_hash
         # Если на его месте что-то другое, ищем его дальше по таблице, пока не найдём его самого, или None,
         # или вернёмся в начальный индекс.
-        actual_hash = calculated_hash + 1
+        actual_hash = (calculated_hash + 1) % self._table_size
         while not compare_func(self._table[actual_hash], key):
             actual_hash = (actual_hash + 1) % self._table_size
             if self._table[actual_hash] is None or actual_hash == calculated_hash:
